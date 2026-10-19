@@ -1,18 +1,14 @@
 ---
-description: TODO write a one-line description of these rules
+description: Rules for co-located TypeScript test files
 paths:
-  # TODO: add glob(s) that activate this rule for co-located test files anywhere in
-  # the tree. Tests are co-located: Foo.tsx lives next to Foo.test.tsx — so the glob
-  # needs to cross-cut both the components tree and the API tree.
-  - "TODO/**/*"
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
 ---
 
 # Test file rules
 
-<!--
-TODO: Write at least one concrete, non-trivial convention for editing co-located
-      test files (*.test.ts / *.test.tsx). Think about what should layer ON TOP of
-      the React or API rules when the file under test sits in those directories.
-      Examples: assertion-style enforcement, test-data-builder usage, forbidden
-      patterns (snapshots, setTimeout, DB mocking).
--->
+- Test observable behavior with explicit assertions, including relevant error cases.
+- Use shared test-data builders or fixtures for complex objects instead of duplicating large inline objects.
+- Do not use snapshot tests for API responses or complex component behavior; assert specific fields and user-visible outcomes.
+- Do not use `setTimeout` to coordinate asynchronous tests; await promises and use the test framework's async utilities.
+- Keep tests co-located with their implementation and use the `.test.ts` or `.test.tsx` suffix.grep -n -A35 -B5 "def body_has_concrete_convention" tests/test_us02_path_scoped_rules.py

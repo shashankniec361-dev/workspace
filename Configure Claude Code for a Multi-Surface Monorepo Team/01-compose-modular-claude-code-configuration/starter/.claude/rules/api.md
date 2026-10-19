@@ -1,16 +1,13 @@
 ---
-description: TODO write a one-line description of these rules
+description: API handler conventions for the e-commerce monorepo
 paths:
-  # TODO: add glob(s) that activate this rule when Claude edits files under src/api/
-  - "TODO/**/*"
+  - "src/api/**/*"
 ---
 
 # API handler rules
 
-<!--
-TODO: Write at least one concrete, non-trivial convention for editing files under
-      src/api/. Pull from `.claude/standards/api.md` (already complete) for context,
-      but write something more specific than the standard — a rule that ONLY fires
-      when editing API handler files. For example: handler signature shape, error-type
-      enforcement, or repository-import boundaries.
--->
+- Every API handler must validate request parameters and body fields before calling a repository.
+- API handlers must access PostgreSQL through repository modules under `src/db/`; never import or instantiate a database client directly in `src/api/`.
+- Return explicit HTTP status codes for success, validation failures, missing resources, and unexpected errors.
+- Catch expected errors and return a consistent JSON error response without exposing stack traces or internal implementation details.
+- Keep database queries and business logic out of HTTP handlers; delegate them to the appropriate repository or service.
